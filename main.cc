@@ -19,6 +19,7 @@ public:
         delete[] matrix_arr_;
     }
     
+    // Copy Assignment Operator
     Matrix2D& operator=(const Matrix2D& rhs) noexcept {
         if (this != &rhs) {
             delete[] this->matrix_arr_;
@@ -29,12 +30,9 @@ public:
 
             for(size_t i = 0; i < rows_ * columns_; i++) 
             {
-                // TODO optimize 
-                this->matrix_arr_[i] = rhs.matrix_arr_[i];
+                this->matrix_arr_[i] = rhs.matrix_arr_[i]; // TODO: optimize 
             }
         }
-
-        // Returning *this will allow assignment chainging e.g. m_A = m_B = m_C;
         return *this;
     }
 
@@ -44,6 +42,21 @@ public:
             throw std::invalid_argument("Out-of-bounds access on Matrix array.");
 
         return matrix_arr_[row_index * columns_ + col_index];
+    }
+
+    // Matrix multiplication.
+    void operator*(Matrix2D& rhs) {
+        if (this->GetColumnsSize() != rhs.GetRowsSize())
+            throw std::invalid_argument("Left hand matrix's columns length must be equal to right hand matrix's row/s length.");
+        
+        Matrix2D product_matrix(this->GetRowsSize(), rhs.GetColumnsSize());
+        for (size_t i = 0; i < this->GetRowsSize(); i++) {
+            for (size_t j = 0; j < rhs.GetColumnsSize(); j++) {
+                product_matrix(i,j) = this->operator()(i,j) * rhs(i, j);
+            }
+        }
+
+        product_matrix.PrintMatrix();
     }
 
     // Getters & Setters
@@ -75,11 +88,14 @@ private:
 
 
 int main()
-{   
-    Matrix2D matrix(5, 4);
-    matrix(0, 2) = 7;
-    matrix(1,2) = 7;
-    matrix(2,2) = 7;
-    matrix.PrintMatrix();
+{       
+    Matrix2D m_B(2,3);
+    m_B(0,0) = 2; m_B(0,1) = 3; m_B(0,2) = 1; 
+    m_B(1,0) = 3; m_B(1,1) = 5; m_B(1,2) = 6; 
+    Matrix2D m_C(3,2);
+    m_C(0,0) = 2; m_C(0,1) = 3; 
+    m_C(1,0) = 3; m_C(1,1) = 5;
+
+    m_B * m_C;
     return 0;
 }
