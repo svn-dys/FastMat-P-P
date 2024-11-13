@@ -49,6 +49,24 @@ public:
     // Getters & Setters
     size_t GetRowsSize() const { return rows_; }
     size_t GetColumnsSize() const { return columns_; }
+    size_t GetMatrixSize() const { return matrix_size_; }
+
+    // Debugging
+    void PrintMatrix() {
+        LOG("Matrix:")
+        LOG("------------------------------------------------------------------");
+        for (size_t i = 0; i < GetRowsSize(); ++i) {
+            std::cout << "{ ";
+            for (size_t j = 0; j < GetColumnsSize(); ++j) {
+                std::cout << this->operator()(i,j);
+                if (j < columns_ - 1) {
+                    std::cout << ", ";
+                }
+            }
+            std::cout << " }" << std::endl;
+        } 
+        LOG("------------------------- EO Matrix ------------------------------")
+    }
 
 private:
     size_t rows_, columns_, matrix_size_;
@@ -58,17 +76,10 @@ private:
 
 int main()
 {   
-    Matrix2D matrix(7, 9);
-    matrix(0, 2) = 3;
-    LOG("Rows: " << matrix.GetRowsSize() << " Columns: " 
-              << matrix.GetColumnsSize())
-    LOG("Val: " << matrix(3, 4));
-    LOG("Val: " << matrix(0, 2));
-
-    Matrix2D matrix_A(10000, 20000);
-    Matrix2D matrix_B(300, 400);
-    Matrix2D matrix_C(300, 400);
-    matrix_A = matrix_B = matrix_C;
-
+    Matrix2D matrix(5, 4);
+    matrix(0, 2) = 7;
+    matrix(1,2) = 7;
+    matrix(2,2) = 7;
+    matrix.PrintMatrix();
     return 0;
 }
