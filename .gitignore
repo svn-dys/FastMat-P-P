@@ -33,3 +33,6 @@
 
 # Ignore all .bin files
 *.bin
+
+# Ignore .vscode folder
+.vscode/
