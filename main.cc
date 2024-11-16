@@ -43,7 +43,7 @@ public:
     }
 
     // Return value at specified index
-    size_t& operator()(size_t row_index, size_t col_index) {
+    size_t& operator()(size_t row_index, size_t col_index) const {
         if (row_index >= rows_ || col_index >= columns_)
             throw std::invalid_argument("Out-of-bounds access on Matrix array.");
         return matrix_arr_[row_index * columns_ + col_index];
@@ -88,7 +88,7 @@ public:
     }
 
     // Mock Matrix function for testing
-    Matrix2D MockMatrix(size_t&& rows, size_t&& columns, std::pair<int, int>&& range) {
+    Matrix2D MockMatrix(size_t rows, size_t columns, std::pair<int, int>&& range) const {
         std::mt19937 rng(static_cast<unsigned>(std::time(nullptr)));
         size_t min_value = 0;
         size_t max_value = 1000;
@@ -113,7 +113,7 @@ int main() {
     mock_matrix_1 = mock_matrix_1.MockMatrix(1024, 1024, {0, 200});
     
     Matrix2D mock_matrix_2;
-    mock_matrix_2 = mock_matrix_2.MockMatrix(1024, 1024, {0, 200});
+    mock_matrix_2 = mock_matrix_2.MockMatrix(0, 0, {0, 0});
 
     Matrix2D sum_mock_matrix = mock_matrix_1 * mock_matrix_2;
     sum_mock_matrix.PrintMatrix();
