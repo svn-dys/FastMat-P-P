@@ -94,7 +94,7 @@ public:
         size_t max_value = 1000;
         std::uniform_int_distribution<size_t> size_t_dist(range.first, range.second);
 
-        size_t* temp_matrix_arr = new size_t[rows * columns]();
+        size_t* temp_matrix_arr = new size_t[rows * columns];
         for (size_t i = 0; i < rows * columns; i++) {
             temp_matrix_arr[i] = size_t_dist(rng);
         }
