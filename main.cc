@@ -88,7 +88,7 @@ public:
     }
 
     // Mock Matrix function for testing
-    Matrix2D MockMatrix(size_t rows, size_t columns, std::pair<int, int> range) {
+    Matrix2D MockMatrix(size_t&& rows, size_t&& columns, std::pair<int, int>&& range) {
         std::mt19937 rng(static_cast<unsigned>(std::time(nullptr)));
         size_t min_value = 0;
         size_t max_value = 1000;
@@ -110,10 +110,10 @@ private:
 
 int main() {           
     Matrix2D mock_matrix_1;
-    mock_matrix_1 = mock_matrix_1.MockMatrix(1000, 1000, std::pair<size_t, size_t>(0, 200));
+    mock_matrix_1 = mock_matrix_1.MockMatrix(1024, 1024, {0, 200});
     
     Matrix2D mock_matrix_2;
-    mock_matrix_2 = mock_matrix_2.MockMatrix(1000, 1000, std::pair<size_t, size_t>(0, 200));
+    mock_matrix_2 = mock_matrix_2.MockMatrix(1024, 1024, {0, 200});
 
     Matrix2D sum_mock_matrix = mock_matrix_1 * mock_matrix_2;
     sum_mock_matrix.PrintMatrix();
