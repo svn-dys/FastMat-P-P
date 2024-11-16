@@ -66,9 +66,9 @@ public:
     }
 
     // Getters
-    size_t GetRowsSize() const { return rows_; }
-    size_t GetColumnsSize() const { return columns_; }
-    size_t GetMatrixSize() const { return matrix_size_; }
+    size_t GetRowsSize() const noexcept { return rows_; }
+    size_t GetColumnsSize() const noexcept { return columns_; }
+    size_t GetMatrixSize() const noexcept { return matrix_size_; }
 
     // Print matrix contents
     void PrintMatrix() {
@@ -113,7 +113,7 @@ int main() {
     mock_matrix_1 = mock_matrix_1.MockMatrix(1024, 1024, {0, 200});
     
     Matrix2D mock_matrix_2;
-    mock_matrix_2 = mock_matrix_2.MockMatrix(0, 0, {0, 0});
+    mock_matrix_2 = mock_matrix_2.MockMatrix(1024, 1024, {0, 200});
 
     Matrix2D sum_mock_matrix = mock_matrix_1 * mock_matrix_2;
     sum_mock_matrix.PrintMatrix();
